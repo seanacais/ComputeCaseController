@@ -91,7 +91,7 @@ uint8_t Scheduler::findLastScheduledPrior(const uint32_t notAfter) {
 }
 
 bool Scheduler::isDue(void) {
-	if ((head != 0) && (g_currentTick <= nodes[head].tick)) {
+	if ((head != 0) && (g_currentTick >= nodes[head].tick)) {
 		return true;
 	}
 	return false;

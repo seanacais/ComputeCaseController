@@ -22,10 +22,6 @@ extern volatile bool g_tickCounterStarted;
 extern eventBuffer eb;
 
 // This interrupt needs to fire every 1 mSec
-// ATMega 8 has a 1 MHz internal oscillator
-// Prescalar of 64 has counter freq of 16.384 KHz
-// Full 8 bit give rollover freq of approx 64 Hz (period of 15 mSec)
-// Use 128 as Timer Value (TCNT0_VALUE)
 
 #define UP 0x00
 #define DOWN 0xFF
@@ -50,33 +46,12 @@ SIGNAL (SIG_OVERFLOW0) {
 		eb.addEvent(BUTTON_UP);
 	}
 
-//	if (t0.isDue() && (g_currentTick % 256)) {
-//	if ((g_currentTick % 1024) == 0) {
-//		eb.addEvent(SCH_EVENT_READY);
-//	}
-//	if (t0.isDue() == true) {
-//		eb.addEvent(DIAG_LED_ON);
-//	}
+	if (t0.isDue() == true) {
+		eb.addEvent(SCH_EVENT_READY);
+	}
 
 	if ((g_currentTick % 32) == 0) { // every 32 mSec
 		eb.addEvent(BUTTON_ASSESS);
-//		PORTB ^= _BV(PB3);
 	}
 
-//	if ((g_currentTick % 1024) == 0) {  // every second
-//		eb.addEvent(DIAG_LED_BLINK);
-//		PORTB ^= _BV(PB3);
-//	}
-
-//PORTB ^= _BV(PB3);
-
-	if (t0.isDue() == true) {
-		eb.addEvent(SCH_EVENT_READY);
-//		PORTB ^= _BV(PB3);
-//		PORTB &= ~(_BV(PB3));
-	}
-//	else {
-//		PORTB |= _BV(PB2);
-//		PORTB &= ~(_BV(PB2));
-//	}
 }

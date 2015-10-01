@@ -18,7 +18,7 @@ class eventBuffer {
 
 private:
 	uint8_t buffer[256];
-	uint8_t head, tail;
+	volatile uint8_t head, tail;
 
 public:
 	eventBuffer();

@@ -123,14 +123,22 @@
 	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
 		<project id="ComputeCaseController.de.innot.avreclipse.project.winavr.elf_2.1.0.949229800" name="AVR Cross Target Application" projectType="de.innot.avreclipse.project.winavr.elf_2.1.0"/>
 	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
+	<storageModule moduleId="refreshScope"/>
 	<storageModule moduleId="scannerConfiguration">
 		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		<scannerConfigBuildInfo instanceId="de.innot.avreclipse.configuration.app.debug.1475125394;de.innot.avreclipse.configuration.app.debug.1475125394.;de.innot.avreclipse.tool.compiler.winavr.app.debug.830386206;de.innot.avreclipse.compiler.winavr.input.902348501">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="de.innot.avreclipse.core.AVRGCCManagedMakePerProjectProfileC"/>
+		</scannerConfigBuildInfo>
 		<scannerConfigBuildInfo instanceId="de.innot.avreclipse.configuration.app.release.1547451107;de.innot.avreclipse.configuration.app.release.1547451107.;de.innot.avreclipse.tool.compiler.winavr.app.release.1849967468;de.innot.avreclipse.compiler.winavr.input.1328723662">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="de.innot.avreclipse.core.AVRGCCManagedMakePerProjectProfileC"/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="de.innot.avreclipse.configuration.app.debug.1475125394;de.innot.avreclipse.configuration.app.debug.1475125394.;de.innot.avreclipse.tool.cppcompiler.app.debug.948235769;de.innot.avreclipse.cppcompiler.input.828129171">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="de.innot.avreclipse.core.AVRGCCManagedMakePerProjectProfileCPP"/>
 		</scannerConfigBuildInfo>
 		<scannerConfigBuildInfo instanceId="de.innot.avreclipse.configuration.app.release.1547451107;de.innot.avreclipse.configuration.app.release.1547451107.;de.innot.avreclipse.tool.cppcompiler.app.release.1584510498;de.innot.avreclipse.cppcompiler.input.657650994">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="de.innot.avreclipse.core.AVRGCCManagedMakePerProjectProfileCPP"/>
 		</scannerConfigBuildInfo>
 	</storageModule>
-	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
+	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
 </cproject>

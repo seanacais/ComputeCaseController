@@ -71,14 +71,11 @@ void diag_led_blink(void){
 	t0.scheduleEvent(500, DIAG_LED_ON);
 }
 void diag_led_blink_2(void){
-//	t0.scheduleEvent(0, DIAG_LED_ON);
-	//dcvm_off();
-	t0.scheduleEvent(1250, DIAG_LED_ON);
-	t0.scheduleEvent(2500, DIAG_LED_OFF);
-	t0.scheduleEvent(3750, DIAG_LED_ON);
-	t0.scheduleEvent(5000, DIAG_LED_OFF);
-	t0.scheduleEvent(6250, DIAG_LED_ON);
-	//dcvm_on();
+	eb.addEvent(DIAG_LED_ON);
+	t0.scheduleEvent(150, DIAG_LED_OFF);
+	t0.scheduleEvent(300, DIAG_LED_ON);
+	t0.scheduleEvent(450, DIAG_LED_OFF);
+	t0.scheduleEvent(600, DIAG_LED_ON);
 }
 void dcvm_on(void){
 	PORTB |= _BV(PB2);
@@ -156,7 +153,6 @@ int main(void) {		//  Template Mainline
 				break;
 			case SCH_EVENT_READY:
 				eb.addEvent(t0.getEvent());
-				PORTB ^= _BV(PB2);
 				break;
 			}
 
