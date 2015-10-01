@@ -17,8 +17,7 @@ extern Scheduler t0;
 //uint8_t TCNT0_VALUE = 128;
 uint8_t TCNT0_VALUE = 143;
 
-extern volatile uint32_t g_currentTick;
-extern volatile bool g_tickCounterStarted;
+volatile uint32_t g_currentTick = 0;
 extern eventBuffer eb;
 
 // This interrupt needs to fire every 1 mSec

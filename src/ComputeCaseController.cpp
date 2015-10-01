@@ -30,8 +30,7 @@ void dcvm_on(void);
 void dcvm_off(void);
 
 //  Global Variables
-volatile uint32_t g_currentTick = 0;
-volatile bool g_tickCounterStarted = false;
+extern volatile uint32_t g_currentTick;
 uint8_t count = 0;
 
 // Global for timer overflow
@@ -55,8 +54,6 @@ void initialize(void) {
 
 	PORTB |= (_BV(PB0)); // Use the internal pullup on PB0
 	PORTB |= (_BV(PB3)); // start with diagnostic LED on
-
-	g_tickCounterStarted = true;
 }
 
 void diag_led_on(void){

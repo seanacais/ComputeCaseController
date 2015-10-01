@@ -26,7 +26,7 @@ private:
 	};
 
 	Node nodes[MAX_NODES];
-	volatile uint8_t head;
+	uint8_t head;
 
 	uint8_t findNextUnused();
 	void addNode(const uint32_t, const uint8_t);
