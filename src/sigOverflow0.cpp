@@ -49,7 +49,7 @@ SIGNAL (SIG_OVERFLOW0) {
 		eb.addEvent(SCH_EVENT_READY);
 	}
 
-	if ((g_currentTick % 32) == 0) { // every 32 mSec
+	if ((g_currentTick % 16) == 0) { // every 32 mSec
 		eb.addEvent(BUTTON_ASSESS);
 	}
 

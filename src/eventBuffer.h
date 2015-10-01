@@ -38,21 +38,23 @@ public:
 #define BUTTON_PRESS_3   0x0D // Momentary Switch is pressed and released 3 times
 #define BUTTON_PRESS_4   0x0E // Momentary Switch is pressed and released 4 times
 #define BUTTON_P_AND_H   0x0F // Momentary Switch is pressed and held for 4.5 seconds
-#define DIAG_LED_ON      0x10 // Turn on Diagnostic LED
-#define DIAG_LED_OFF     0x11 // Turn off Diagnostic LED
-#define DIAG_LED_BLINK   0x12 // Blink the Diagnostic LED
-#define DIAG_LED_BLINK_2 0x13 // Blink the Diagnostic LED 2x
-#define DIAG_LED_BLINK_3 0x14 // Blink the Diagnostic LED 3x
-#define DIAG_LED_BLINK_4 0x15 // Blink the Diagnostic LED 4x
-#define PSU_RMT_ON       0x18 // Turn of the PSU via Remote Interface
-#define PSU_RMT_OFF      0x19 // Turn of the PSU via Remote Interface
-#define DCVM_ON          0x20 // Turn on DC Volt Meter
-#define DCVM_OFF         0x21 // Turn off DC Volt Meter
-#define DCVM_BLINK       0x22 // Blink the DC Volt Meter
-#define DCVM_BLINK_2     0x23 // Blink the DC Volt Meter 2x
-#define DCVM_BLINK_3     0x24 // Blink the DC Volt Meter 3x
-#define DCVM_BLINK_4     0x25 // Blink the DC Volt Meter 4x
-#define SCH_EVENT_READY  0x28 // There is an event scheduled that is due
+#define SCH_EVENT_READY  0x10 // There is an event scheduled that is due
+#define PSU_RMT_ON       0x20 // Turn of the PSU via Remote Interface
+#define PSU_RMT_OFF      0x21 // Turn of the PSU via Remote Interface
+#define DCVM_ON          0x30 // Turn on DC Volt Meter
+#define DCVM_OFF         0x31 // Turn off DC Volt Meter
+#define DCVM_TOGGLE      0x32 // Toggle the Diagnostic LED
+#define DCVM_BLINK       0x32 // Blink the DC Volt Meter
+#define DCVM_BLINK_2     0x33 // Blink the DC Volt Meter 2x
+#define DCVM_BLINK_3     0x34 // Blink the DC Volt Meter 3x
+#define DCVM_BLINK_4     0x35 // Blink the DC Volt Meter 4x
+#define DIAG_LED_ON      0x40 // Turn on Diagnostic LED
+#define DIAG_LED_OFF     0x41 // Turn off Diagnostic LED
+#define DIAG_LED_TOGGLE  0x42 // Toggle the Diagnostic LED
+#define DIAG_LED_BLINK   0x43 // Blink the Diagnostic LED
+#define DIAG_LED_BLINK_2 0x44 // Blink the Diagnostic LED 2x
+#define DIAG_LED_BLINK_3 0x45 // Blink the Diagnostic LED 3x
+#define DIAG_LED_BLINK_4 0x46 // Blink the Diagnostic LED 4x
 #endif /* SRC_EVENTBUFFER_H_ */
 
 /*

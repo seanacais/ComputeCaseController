@@ -62,17 +62,18 @@ void diag_led_on(void){
 void diag_led_off(void){
 	PORTB &= ~(_BV(PB3));
 }
+void diag_led_toggle(void){
+	PORTB ^= _BV(PB3);
+}
 void diag_led_blink(void){
-	eb.addEvent(DIAG_LED_ON);
-	t0.scheduleEvent(250, DIAG_LED_OFF);
-	t0.scheduleEvent(500, DIAG_LED_ON);
+	eb.addEvent(DIAG_LED_TOGGLE);
+	t0.scheduleEvent(75, DIAG_LED_TOGGLE);
 }
 void diag_led_blink_2(void){
-	eb.addEvent(DIAG_LED_ON);
-	t0.scheduleEvent(150, DIAG_LED_OFF);
-	t0.scheduleEvent(300, DIAG_LED_ON);
-	t0.scheduleEvent(450, DIAG_LED_OFF);
-	t0.scheduleEvent(600, DIAG_LED_ON);
+	eb.addEvent(DIAG_LED_TOGGLE);
+	t0.scheduleEvent(75, DIAG_LED_TOGGLE);
+	t0.scheduleEvent(150, DIAG_LED_TOGGLE);
+	t0.scheduleEvent(300, DIAG_LED_TOGGLE);
 }
 void dcvm_on(void){
 	PORTB |= _BV(PB2);
@@ -99,7 +100,6 @@ int main(void) {		//  Template Mainline
 				break;
 			case BUTTON_UP:
 				s0.accept_up();
-				diag_led_blink_2();
 				break;
 			case BUTTON_ASSESS:
 				s0.assess();
@@ -109,6 +109,9 @@ int main(void) {		//  Template Mainline
 				break;
 			case DIAG_LED_OFF:
 				diag_led_off();
+				break;
+			case DIAG_LED_TOGGLE:
+				diag_led_toggle();
 				break;
 			case DIAG_LED_BLINK:
 				diag_led_blink();
