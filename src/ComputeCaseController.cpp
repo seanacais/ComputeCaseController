@@ -73,13 +73,42 @@ void diag_led_blink_2(void){
 	eb.addEvent(DIAG_LED_TOGGLE);
 	t0.scheduleEvent(75, DIAG_LED_TOGGLE);
 	t0.scheduleEvent(150, DIAG_LED_TOGGLE);
+	t0.scheduleEvent(225, DIAG_LED_TOGGLE);
+}
+void diag_led_blink_3(void){
+	eb.addEvent(DIAG_LED_TOGGLE);
+	t0.scheduleEvent(75, DIAG_LED_TOGGLE);
+	t0.scheduleEvent(150, DIAG_LED_TOGGLE);
+	t0.scheduleEvent(225, DIAG_LED_TOGGLE);
 	t0.scheduleEvent(300, DIAG_LED_TOGGLE);
+	t0.scheduleEvent(375, DIAG_LED_TOGGLE);
 }
 void dcvm_on(void){
 	PORTB |= _BV(PB2);
 }
 void dcvm_off(void){
 	PORTB &= ~(_BV(PB2));
+}
+void dcvm_toggle(void){
+	PORTB ^= _BV(PB2);
+}
+void dcvm_blink(void){
+	eb.addEvent(DCVM_TOGGLE);
+	t0.scheduleEvent(90, DCVM_TOGGLE);
+}
+void dcvm_blink_2(void){
+	eb.addEvent(DCVM_TOGGLE);
+	t0.scheduleEvent(90, DCVM_TOGGLE);
+	t0.scheduleEvent(180, DCVM_TOGGLE);
+	t0.scheduleEvent(270, DCVM_TOGGLE);
+}
+void dcvm_blink_3(void){
+	eb.addEvent(DCVM_TOGGLE);
+	t0.scheduleEvent(90, DCVM_TOGGLE);
+	t0.scheduleEvent(180, DCVM_TOGGLE);
+	t0.scheduleEvent(270, DCVM_TOGGLE);
+	t0.scheduleEvent(360, DCVM_TOGGLE);
+	t0.scheduleEvent(450, DCVM_TOGGLE);
 }
 
 int main(void) {		//  Template Mainline
@@ -119,31 +148,45 @@ int main(void) {		//  Template Mainline
 			case DIAG_LED_BLINK_2:
 				diag_led_blink_2();
 				break;
+			case DIAG_LED_BLINK_3:
+				diag_led_blink_3();
+				break;
 			case DCVM_ON:
 				dcvm_on();
 				break;
 			case DCVM_OFF:
 				dcvm_off();
 				break;
+			case DCVM_TOGGLE:
+				dcvm_toggle();
+				break;
 			case DCVM_BLINK:
+				dcvm_blink();
 				break;
 			case DCVM_BLINK_2:
+				dcvm_blink_2();
 				break;
 			case DCVM_BLINK_3:
+				dcvm_blink_3();
 				break;
 			case DCVM_BLINK_4:
 				break;
 			case BUTTON_PRESS:
 				eb.addEvent(PSU_RMT_ON);
+				eb.addEvent(DIAG_LED_BLINK);
 				break;
 			case BUTTON_PRESS_2:
+				eb.addEvent(DIAG_LED_BLINK_2);
 				break;
 			case BUTTON_PRESS_3:
+				eb.addEvent(DIAG_LED_BLINK_3);
 				break;
 			case BUTTON_PRESS_4:
 				break;
 			case BUTTON_P_AND_H:
-				eb.addEvent(PSU_RMT_OFF);
+				//eb.addEvent(PSU_RMT_OFF);
+				//t0.scheduleEvent(8192, DCVM_OFF);
+				eb.addEvent(DCVM_BLINK_2);
 				break;
 			case PSU_RMT_OFF:
 				p0.psu_off();

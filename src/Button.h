@@ -11,19 +11,34 @@
 
 #include <avr/io.h>
 
+#define SW_STATE_UP 0x00
+#define SW_STATE_DOWN 0xFF
+
+#define SW_HOLD_FOR_POWER_OFF 3500
+#define SW_PRESS_DELAY 400
+//#define SW_MULTI_PRESS_SENSITIVITY 500
+
 class Button {
 	/* This class implements a switch handler to do timings for multi-presses
 	 */
 
 private:
-	uint32_t last_up_tick;
-	uint32_t last_down_tick;
+
+	volatile bool new_event;
+	volatile bool last_event_was_psu_off;
+	volatile bool multi_press_finished;
+	volatile uint8_t press_count;
+
+	volatile uint8_t switch_state;
+
+	volatile uint32_t last_up_tick;
+	volatile uint32_t prev_up_tick;
+	volatile uint32_t last_down_tick;
+	volatile uint32_t last_event_tick;
 public:
 	Button();
 	void accept_down();
 	void accept_up();
-	void accept_press();
-	bool isMore();
 	void assess();
 };
 

@@ -11,6 +11,8 @@ static char const copyright[] =
 static char const rcsid[] = "$Id: $";
 static char const rcsversion[] = "$Revision: $ $Name:  $";
 
+#include <avr/interrupt.h>
+
 #include "eventBuffer.h"
 
 eventBuffer::eventBuffer() :
@@ -26,7 +28,6 @@ bool eventBuffer::isMore() {
 
 void eventBuffer::addEvent(const uint8_t command) {
 	buffer[head++] = command;
-	;
 }
 
 uint8_t eventBuffer::getNextEvent() {

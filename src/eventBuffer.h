@@ -44,10 +44,10 @@ public:
 #define DCVM_ON          0x30 // Turn on DC Volt Meter
 #define DCVM_OFF         0x31 // Turn off DC Volt Meter
 #define DCVM_TOGGLE      0x32 // Toggle the Diagnostic LED
-#define DCVM_BLINK       0x32 // Blink the DC Volt Meter
-#define DCVM_BLINK_2     0x33 // Blink the DC Volt Meter 2x
-#define DCVM_BLINK_3     0x34 // Blink the DC Volt Meter 3x
-#define DCVM_BLINK_4     0x35 // Blink the DC Volt Meter 4x
+#define DCVM_BLINK       0x33 // Blink the DC Volt Meter
+#define DCVM_BLINK_2     0x34 // Blink the DC Volt Meter 2x
+#define DCVM_BLINK_3     0x35 // Blink the DC Volt Meter 3x
+#define DCVM_BLINK_4     0x36 // Blink the DC Volt Meter 4x
 #define DIAG_LED_ON      0x40 // Turn on Diagnostic LED
 #define DIAG_LED_OFF     0x41 // Turn off Diagnostic LED
 #define DIAG_LED_TOGGLE  0x42 // Toggle the Diagnostic LED

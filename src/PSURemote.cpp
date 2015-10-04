@@ -25,3 +25,7 @@ void PSURemote::psu_off(){
 		PORTB |= _BV(PB1);
 	}
 }
+
+uint8_t PSURemote::psu_state(){
+	return psu_remote_state;
+}

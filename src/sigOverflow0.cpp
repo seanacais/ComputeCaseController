@@ -20,12 +20,17 @@ uint8_t TCNT0_VALUE = 143;
 volatile uint32_t g_currentTick = 0;
 extern eventBuffer eb;
 
+uint8_t bcount = 1;
+uint8_t bcount2 = 1;
+
 // This interrupt needs to fire every 1 mSec
 
 #define UP 0x00
 #define DOWN 0xFF
 #define PRESSED 0x00
 #define RELEASED 0xFF
+
+extern void dcvm_blink();
 
 SIGNAL (SIG_OVERFLOW0) {
 
@@ -49,8 +54,60 @@ SIGNAL (SIG_OVERFLOW0) {
 		eb.addEvent(SCH_EVENT_READY);
 	}
 
-	if ((g_currentTick % 16) == 0) { // every 32 mSec
+	if ((g_currentTick % 8) == 0) { // every 8 mSec
 		eb.addEvent(BUTTON_ASSESS);
 	}
+
+//	if ((g_currentTick % 1024) == 0) { // every Sec
+//		dcvm_blink();
+//	}
+//
+
+// Weird stuff seen.  If you set two different intervals to blink
+// different LED's, it only works if at least one of the intervalse
+// is a power of two.  For example, set one to blink at 7 seconds
+// (modulo 7168) and one at 5 seconds (modulo 5120) and neither light
+// blinks.  However if you set one to four seconds and one to 7 seconds
+// the 7 second light loses sync at 42 seconds, regains sync at 70, loses
+// it again at 84, and cyles through 126, 168, and 252.  I've seen it
+// with other combinations of the numbers but did not document.
+
+//	if ((g_currentTick % 4096) == 0) { // every 4 sec
+//		switch (bcount++) {
+//		case 0:
+//			break;
+//		case 1:
+//			eb.addEvent(DIAG_LED_BLINK);
+//			break;
+//		case 2:
+//			eb.addEvent(DIAG_LED_BLINK_2);
+//			break;
+//		case 3:
+//			eb.addEvent(DIAG_LED_BLINK_3);
+//			break;
+//		}
+//		if (bcount >= 4) {
+//			bcount = 1;
+//		}
+//	}
+//
+//	if (((g_currentTick % 4096) - 2048) == 0) { // every 4 Sec (2 sec offset)
+//		switch (bcount2++) {
+//		case 0:
+//			break;
+//		case 1:
+//			eb.addEvent(DCVM_BLINK);
+//			break;
+//		case 2:
+//			eb.addEvent(DCVM_BLINK_2);
+//			break;
+//		case 3:
+//			eb.addEvent(DCVM_BLINK_3);
+//			break;
+//		}
+//		if (bcount2 >= 4) {
+//			bcount2 = 1;
+//		}
+//	}
 
 }

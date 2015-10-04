@@ -18,8 +18,7 @@ public:
 	PSURemote();
 	void psu_off();
 	void psu_on();
+	uint8_t psu_state();
 };
-
-
 
 #endif /* SRC_PSUREMOTE_H_ */

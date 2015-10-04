@@ -15,7 +15,7 @@ class Scheduler {
 	/* This class implements a scheduled event list
 	 */
 
-#define MAX_NODES 16
+#define MAX_NODES 48
 
 private:
 	struct Node {
@@ -26,7 +26,7 @@ private:
 	};
 
 	Node nodes[MAX_NODES];
-	uint8_t head;
+	volatile uint8_t head;
 
 	uint8_t findNextUnused();
 	void addNode(const uint32_t, const uint8_t);
