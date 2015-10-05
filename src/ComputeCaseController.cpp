@@ -200,15 +200,12 @@ int main(void) {		//  Template Mainline
 			}
 
 		}
-//		set_sleep_mode(SLEEP_MODE_IDLE);
-//		cli();
-//		sleep_enable()
-//		;
-//		sei();
-//		sleep_cpu()
-//		;
-//		sleep_disable()
-//		;
-//		sei();
+		set_sleep_mode(SLEEP_MODE_IDLE);
+		cli();
+		sleep_enable();
+		sei();
+		sleep_cpu();
+		sleep_disable();
+		sei();
 	} //  endwhile
 } // end main()
