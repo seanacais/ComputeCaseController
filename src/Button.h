@@ -31,10 +31,10 @@ private:
 
 	volatile uint8_t switch_state;
 
-	volatile uint32_t last_up_tick;
-	volatile uint32_t prev_up_tick;
-	volatile uint32_t last_down_tick;
-	volatile uint32_t last_event_tick;
+	volatile uint16_t last_up_tick;
+	volatile uint16_t prev_up_tick;
+	volatile uint16_t last_down_tick;
+	volatile uint16_t last_event_tick;
 public:
 	Button();
 	void accept_down();

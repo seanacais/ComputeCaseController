@@ -19,7 +19,7 @@ class Scheduler {
 
 private:
 	struct Node {
-		uint32_t tick;
+		uint16_t tick;
 		uint8_t event;
 		bool inUse;
 		uint8_t next;
@@ -29,12 +29,13 @@ private:
 	volatile uint8_t head;
 
 	uint8_t findNextUnused();
-	void addNode(const uint32_t, const uint8_t);
-	uint8_t findLastScheduledPrior(const uint32_t);
+	void addNode(const uint16_t, const uint8_t);
+	uint8_t findLastScheduledPrior(const uint16_t);
+	uint16_t totalTicksUntil(const uint8_t);
 
 public:
 	Scheduler();
-	void scheduleEvent(const uint32_t, const uint8_t);
+	void scheduleEvent(const uint16_t, const uint8_t);
 	bool isDue(void);
 	uint8_t getEvent(void);
 };

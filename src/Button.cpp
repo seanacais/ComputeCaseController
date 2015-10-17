@@ -15,7 +15,7 @@ static char const rcsversion[] = "$Revision: $ $Name:  $";
 
 #include "eventBuffer.h"
 
-extern volatile uint32_t g_currentTick;
+extern volatile uint16_t g_currentTick;
 extern eventBuffer eb;
 
 #include "Button.h"

@@ -17,7 +17,7 @@ extern Scheduler t0;
 //uint8_t TCNT0_VALUE = 128;
 uint8_t TCNT0_VALUE = 143;
 
-volatile uint32_t g_currentTick = 0;
+volatile uint16_t g_currentTick = 0;
 extern eventBuffer eb;
 
 uint8_t bcount = 1;

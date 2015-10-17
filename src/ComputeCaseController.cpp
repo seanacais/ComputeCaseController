@@ -30,7 +30,7 @@ void dcvm_on(void);
 void dcvm_off(void);
 
 //  Global Variables
-extern volatile uint32_t g_currentTick;
+extern volatile uint16_t g_currentTick;
 uint8_t count = 0;
 
 // Global for timer overflow
@@ -76,12 +76,18 @@ void diag_led_blink_2(void){
 	t0.scheduleEvent(225, DIAG_LED_TOGGLE);
 }
 void diag_led_blink_3(void){
-	eb.addEvent(DIAG_LED_TOGGLE);
-	t0.scheduleEvent(75, DIAG_LED_TOGGLE);
-	t0.scheduleEvent(150, DIAG_LED_TOGGLE);
-	t0.scheduleEvent(225, DIAG_LED_TOGGLE);
-	t0.scheduleEvent(300, DIAG_LED_TOGGLE);
-	t0.scheduleEvent(375, DIAG_LED_TOGGLE);
+//	eb.addEvent(DIAG_LED_TOGGLE);
+//	t0.scheduleEvent(300, DIAG_LED_TOGGLE);
+//	t0.scheduleEvent(150, DIAG_LED_TOGGLE);
+//	t0.scheduleEvent(75, DIAG_LED_TOGGLE);
+//	t0.scheduleEvent(225, DIAG_LED_TOGGLE);
+//	t0.scheduleEvent(375, DIAG_LED_TOGGLE);
+	t0.scheduleEvent(625, DIAG_LED_TOGGLE);  // OFF  @ 175
+	t0.scheduleEvent(175, DIAG_LED_TOGGLE);  // ON  @ 100
+	t0.scheduleEvent(450, DIAG_LED_TOGGLE);  // ON   @ 150
+	t0.scheduleEvent(300, DIAG_LED_TOGGLE);  // OFF  @ 125
+	eb.addEvent(DIAG_LED_TOGGLE);  // ON
+	t0.scheduleEvent(75, DIAG_LED_TOGGLE);  // OFF  @ 75
 }
 void dcvm_on(void){
 	PORTB |= _BV(PB2);
