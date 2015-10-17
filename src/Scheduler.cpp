@@ -14,10 +14,6 @@ static char const rcsversion[] = "$Revision: $ $Name:  $";
 #include <stdio.h>
 #include <avr/interrupt.h>
 
-#include "eventBuffer.h"
-
-extern eventBuffer eb;
-
 #include "Scheduler.h"
 
 Scheduler::Scheduler() {
