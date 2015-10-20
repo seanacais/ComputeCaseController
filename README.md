@@ -1,2 +1,2 @@
 # ComputeCaseController
-Front panel push button control of power supply and display
+Mini-itx compute case front panel push button control of power supply and voltmeter display
