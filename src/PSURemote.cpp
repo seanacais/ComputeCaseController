@@ -7,26 +7,27 @@
  */
 
 #include <avr/io.h>
-
 #include "PSURemote.h"
 
 PSURemote::PSURemote() : psu_remote_state(PSU_OFF) {
+	DDRB |= (_BV(PB1)); // Set PB1 to an output (PSURC)
+	off();              // Start with the PSU off
 }
 
-void PSURemote::psu_on(){
+void PSURemote::on(){
 	if (psu_remote_state == PSU_OFF) {
 		psu_remote_state = PSU_ON;
 		PORTB &= ~(_BV(PB1));
 	}
 }
 
-void PSURemote::psu_off(){
+void PSURemote::off(){
 	if (psu_remote_state == PSU_ON) {
 		psu_remote_state = PSU_OFF;
 		PORTB |= _BV(PB1);
 	}
 }
 
-uint8_t PSURemote::psu_state(){
+uint8_t PSURemote::state(){
 	return psu_remote_state;
 }

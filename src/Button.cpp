@@ -10,11 +10,12 @@
 
 #include "eventBuffer.h"
 
-extern eventBuffer eb;
+extern eventBuffer eb0;
 
 #include "Button.h"
 
 Button::Button() {
+	PORTB |= (_BV(PB0)); // Use the internal pullup on PB0 for the switch
 	switch_state = SW_STATE_UP;
 	in_multi_press = false;
 	last_event_was_pandh = false;
@@ -70,13 +71,13 @@ void Button::assess() {
 	if (switch_state == SW_STATE_UP) {
 		switch (press_count) {
 		case 1:
-			eb.addEvent(BUTTON_PRESS);
+			eb0.addEvent(BUTTON_PRESS);
 			break;
 		case 2:
-			eb.addEvent(BUTTON_PRESS_2);
+			eb0.addEvent(BUTTON_PRESS_2);
 			break;
 		case 3:
-			eb.addEvent(BUTTON_PRESS_3);
+			eb0.addEvent(BUTTON_PRESS_3);
 			break;
 		}
 		press_count = 1;
@@ -84,7 +85,7 @@ void Button::assess() {
 	} else { // switch_state  is down
 		if (switch_tick >= (last_down_tick + SW_HOLD_FOR_POWER_OFF)) {
 			last_event_was_pandh = true;
-			eb.addEvent(BUTTON_P_AND_H);
+			eb0.addEvent(BUTTON_P_AND_H);
 			resetEvent();
 		}
 	}

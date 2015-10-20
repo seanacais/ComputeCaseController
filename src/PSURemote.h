@@ -1,5 +1,5 @@
 /*
- * PSURemote.cpp
+ * PSURemote.h
  *
  *  Copyright (c) Kevin C. Castner. 2015; All rights reserved.
  *  Created on: Sep 29, 2015
@@ -17,9 +17,9 @@ private:
 	uint8_t psu_remote_state;
 public:
 	PSURemote();
-	void psu_off();
-	void psu_on();
-	uint8_t psu_state();
+	void off();
+	void on();
+	uint8_t state();
 };
 
 #endif /* SRC_PSUREMOTE_H_ */

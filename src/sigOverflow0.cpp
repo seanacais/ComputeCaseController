@@ -10,13 +10,13 @@
 #include <avr/interrupt.h>
 
 #include "Scheduler.h"
-extern Scheduler t0;
+extern Scheduler sch0;
 
 #include "eventBuffer.h"
-extern eventBuffer eb;
+extern eventBuffer eb0;
 
 #include "Button.h"
-extern Button s0;
+extern Button sw0;
 
 uint8_t TCNT0_VALUE = 143;
 
@@ -36,26 +36,26 @@ SIGNAL (SIG_OVERFLOW0) {
 	switch0_debounce = ((switch0_debounce << 1) | (PINB & 0x01));
 	if (switch0_debounce == SW_PRESSED && switch0_state == SW_STATE_UP) {
 		switch0_state = SW_STATE_DOWN;
-		eb.addEvent(BUTTON_DOWN);
+		eb0.addEvent(BUTTON_DOWN);
 	}
 
 	if (switch0_debounce == SW_RELEASED && switch0_state == SW_STATE_DOWN) {
 		switch0_state = SW_STATE_UP;
-		eb.addEvent(BUTTON_UP);
+		eb0.addEvent(BUTTON_UP);
 	}
 
-	s0.tick();
+	sw0.tick();
 
-	if (t0.isDue() == true) {
-		eb.addEvent(SCH_EVENT_READY);
+	if (sch0.isDue() == true) {
+		eb0.addEvent(SCH_EVENT_READY);
 	}
 
 	if ((g_currentTick % SW_ASSESS_INTERVAL) == 0) {
-		eb.addEvent(BUTTON_ASSESS);
+		eb0.addEvent(BUTTON_ASSESS);
 	}
 
 //	if ((g_currentTick % 1024) == 0) { // every Sec
-//		dcvm_blink();
+//		dcvm0.blink();
 //	}
 //
 
@@ -73,13 +73,13 @@ SIGNAL (SIG_OVERFLOW0) {
 //		case 0:
 //			break;
 //		case 1:
-//			eb.addEvent(DIAG_LED_BLINK);
+//			eb0.addEvent(DIAG_LED_BLINK);
 //			break;
 //		case 2:
-//			eb.addEvent(DIAG_LED_BLINK_2);
+//			eb0.addEvent(DIAG_LED_BLINK_2);
 //			break;
 //		case 3:
-//			eb.addEvent(DIAG_LED_BLINK_3);
+//			eb0.addEvent(DIAG_LED_BLINK_3);
 //			break;
 //		}
 //		if (bcount >= 4) {
@@ -92,13 +92,13 @@ SIGNAL (SIG_OVERFLOW0) {
 //		case 0:
 //			break;
 //		case 1:
-//			eb.addEvent(DCVM_BLINK);
+//			eb0.addEvent(DCVM_BLINK);
 //			break;
 //		case 2:
-//			eb.addEvent(DCVM_BLINK_2);
+//			eb0.addEvent(DCVM_BLINK_2);
 //			break;
 //		case 3:
-//			eb.addEvent(DCVM_BLINK_3);
+//			eb0.addEvent(DCVM_BLINK_3);
 //			break;
 //		}
 //		if (bcount2 >= 4) {
