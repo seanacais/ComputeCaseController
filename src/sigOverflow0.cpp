@@ -13,48 +13,44 @@
 extern Scheduler t0;
 
 #include "eventBuffer.h"
-
-//uint8_t TCNT0_VALUE = 128;
-uint8_t TCNT0_VALUE = 143;
-
-volatile uint16_t g_currentTick = 0;
 extern eventBuffer eb;
 
-uint8_t bcount = 1;
-uint8_t bcount2 = 1;
+#include "Button.h"
+extern Button s0;
+
+uint8_t TCNT0_VALUE = 143;
+
+//uint8_t bcount = 1;
+//uint8_t bcount2 = 1;
+
+volatile uint16_t g_currentTick = 0;
 
 // This interrupt needs to fire every 1 mSec
-
-#define UP 0x00
-#define DOWN 0xFF
-#define PRESSED 0x00
-#define RELEASED 0xFF
-
-extern void dcvm_blink();
-
 SIGNAL (SIG_OVERFLOW0) {
 
 	g_currentTick++;
 	TCNT0 = TCNT0_VALUE;
-	static uint8_t switch0_debounce = RELEASED;
-	static uint8_t switch0_state = UP;
+	static uint8_t switch0_debounce = SW_RELEASED;
+	static uint8_t switch0_state = SW_STATE_UP;
 
 	switch0_debounce = ((switch0_debounce << 1) | (PINB & 0x01));
-	if (switch0_debounce == PRESSED && switch0_state == UP) {
-		switch0_state = DOWN;
+	if (switch0_debounce == SW_PRESSED && switch0_state == SW_STATE_UP) {
+		switch0_state = SW_STATE_DOWN;
 		eb.addEvent(BUTTON_DOWN);
 	}
 
-	if (switch0_debounce == RELEASED && switch0_state == DOWN) {
-		switch0_state = UP;
+	if (switch0_debounce == SW_RELEASED && switch0_state == SW_STATE_DOWN) {
+		switch0_state = SW_STATE_UP;
 		eb.addEvent(BUTTON_UP);
 	}
+
+	s0.tick();
 
 	if (t0.isDue() == true) {
 		eb.addEvent(SCH_EVENT_READY);
 	}
 
-	if ((g_currentTick % 8) == 0) { // every 8 mSec
+	if ((g_currentTick % SW_ASSESS_INTERVAL) == 0) {
 		eb.addEvent(BUTTON_ASSESS);
 	}
 

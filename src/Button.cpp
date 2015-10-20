@@ -15,62 +15,60 @@ static char const rcsversion[] = "$Revision: $ $Name:  $";
 
 #include "eventBuffer.h"
 
-extern volatile uint16_t g_currentTick;
 extern eventBuffer eb;
 
 #include "Button.h"
 
 Button::Button() {
 	switch_state = SW_STATE_UP;
-	multi_press_finished = true;
-	last_event_was_psu_off = false;
-	new_event = false;
-	last_down_tick = 0;
-	last_up_tick = g_currentTick;
-	last_event_tick = last_up_tick;
+	in_multi_press = false;
+	last_event_was_pandh = false;
 	press_count = 1;
+	resetEvent();
 }
 
 void Button::accept_down() {
 	switch_state = SW_STATE_DOWN;
-	last_down_tick = g_currentTick;
+	switch_tick_on = true;
+	last_down_tick = switch_tick;
 	last_event_tick = last_down_tick;
 	new_event = true;
 	if ((last_up_tick + SW_PRESS_DELAY) > last_down_tick) {
-		multi_press_finished = false;
+		in_multi_press = true;
 	} else {
-		multi_press_finished = true;
+		in_multi_press = false;
 	}
 }
 
 void Button::accept_up() {
 	switch_state = SW_STATE_UP;
-	// Don't do anything with the switch release if the last event caused a PSU Off event
-	if (last_event_was_psu_off) {
-		last_event_was_psu_off = false;
+
+	// Don't respond to the switch release if the previous event was a press and hold
+	if (last_event_was_pandh) {
+		last_event_was_pandh = false;
 		return;
 	}
-	last_up_tick = g_currentTick;
+	last_up_tick = switch_tick;
 	last_event_tick = last_up_tick;
-	if (!multi_press_finished) {
+	if (in_multi_press) {
 		press_count++;
 		return;
 	}
 	new_event = true;
 }
 
-void Button::assess() {
-// assess() runs every eight mS by virtue of an interrupt.
+// assess() runs periodically from the timer overflow interrupt.
 // At 8 mS it is guaranteed to catch every up/down switch event as the
 // rate of switch events cannot be faster due to the de-bounce.
 // Should the processor not be able to keep up, it may be sufficient
-// to run this routine at 16mS but it would be recommended to make the
-// de-bounce in the timer interrupt the same length of time.
+// to run this routine at a slower rate.
+// Modify SW_ASSESS_INTERVAL to adjust.
+void Button::assess() {
 
-// exit if there has been no switch activity (most frequent case)
-// or the switch sequence delay has not elapsed
+	// exit if there has been no switch activity (most frequent case)
+	// or the switch sequence delay has not elapsed
 	if ((new_event == false)
-			|| (g_currentTick < (last_event_tick + SW_PRESS_DELAY))) {
+			|| (switch_tick < (last_event_tick + SW_PRESS_DELAY))) {
 		return;
 	}
 
@@ -87,15 +85,29 @@ void Button::assess() {
 			break;
 		}
 		press_count = 1;
-		new_event = false;
+		resetEvent();
 	} else { // switch_state  is down
-		if ((last_down_tick >= last_up_tick)
-				&& (g_currentTick >= (last_down_tick + SW_HOLD_FOR_POWER_OFF))) {
-			last_event_was_psu_off = true;
+		if (switch_tick >= (last_down_tick + SW_HOLD_FOR_POWER_OFF)) {
+			last_event_was_pandh = true;
 			eb.addEvent(BUTTON_P_AND_H);
-			new_event = false;
+			resetEvent();
 		}
 	}
+}
+
+void Button::tick() {
+	if (switch_tick_on) {
+		switch_tick++;
+	}
+}
+
+void Button::resetEvent() {
+	new_event = false;
+	switch_tick_on = false;
+	switch_tick = MAX_UINT16_VALUE / 2;
+	last_down_tick = switch_tick;
+	last_up_tick = switch_tick - SW_PRESS_DELAY - 1;
+	last_event_tick = last_up_tick;
 }
 
 /*
