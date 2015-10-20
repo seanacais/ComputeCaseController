@@ -3,13 +3,8 @@
  *
  *  Copyright (c) Kevin C. Castner. 2015; All rights reserved.
  *  Created on: Sep 26, 2015
- *      Author: seanacais
+ *      Author: Kevin C. Castner
  */
-
-static char const copyright[] =
-		"Copyright Kevin C. Castner, 2015; All Rights Reserved";
-static char const rcsid[] = "$Id: $";
-static char const rcsversion[] = "$Revision: $ $Name:  $";
 
 #include <stdio.h>
 
@@ -110,7 +105,3 @@ void Button::resetEvent() {
 	last_event_tick = last_up_tick;
 }
 
-/*
- *
- * $Log: $
- */

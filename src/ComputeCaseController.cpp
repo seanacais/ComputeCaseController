@@ -6,6 +6,9 @@
  *      Author: Kevin C. Castner
  */
 
+static char const copyright[] =
+		"Copyright (c) Kevin C. Castner, 2015; All Rights Reserved";
+
 // Include definitions for the current part defined in Makefile
 #include <stdint.h>
 #include <avr/io.h>
@@ -30,7 +33,7 @@ void dcvm_on(void);
 void dcvm_off(void);
 
 //  Global Variables
-extern volatile uint16_t g_currentTick;
+// extern volatile uint16_t g_currentTick;
 uint8_t count = 0;
 
 // Global for timer overflow
@@ -56,26 +59,26 @@ void initialize(void) {
 	PORTB |= (_BV(PB3)); // start with diagnostic LED on
 }
 
-void diag_led_on(void){
+void diag_led_on(void) {
 	PORTB |= _BV(PB3);
 }
-void diag_led_off(void){
+void diag_led_off(void) {
 	PORTB &= ~(_BV(PB3));
 }
-void diag_led_toggle(void){
+void diag_led_toggle(void) {
 	PORTB ^= _BV(PB3);
 }
-void diag_led_blink(void){
+void diag_led_blink(void) {
 	eb.addEvent(DIAG_LED_TOGGLE);
 	t0.scheduleEvent(75, DIAG_LED_TOGGLE);
 }
-void diag_led_blink_2(void){
+void diag_led_blink_2(void) {
 	eb.addEvent(DIAG_LED_TOGGLE);
 	t0.scheduleEvent(75, DIAG_LED_TOGGLE);
 	t0.scheduleEvent(150, DIAG_LED_TOGGLE);
 	t0.scheduleEvent(225, DIAG_LED_TOGGLE);
 }
-void diag_led_blink_3(void){
+void diag_led_blink_3(void) {
 //	eb.addEvent(DIAG_LED_TOGGLE);
 //	t0.scheduleEvent(300, DIAG_LED_TOGGLE);
 //	t0.scheduleEvent(150, DIAG_LED_TOGGLE);
@@ -89,26 +92,26 @@ void diag_led_blink_3(void){
 	eb.addEvent(DIAG_LED_TOGGLE);  // ON
 	t0.scheduleEvent(75, DIAG_LED_TOGGLE);  // OFF  @ 75
 }
-void dcvm_on(void){
+void dcvm_on(void) {
 	PORTB |= _BV(PB2);
 }
-void dcvm_off(void){
+void dcvm_off(void) {
 	PORTB &= ~(_BV(PB2));
 }
-void dcvm_toggle(void){
+void dcvm_toggle(void) {
 	PORTB ^= _BV(PB2);
 }
-void dcvm_blink(void){
+void dcvm_blink(void) {
 	eb.addEvent(DCVM_TOGGLE);
 	t0.scheduleEvent(90, DCVM_TOGGLE);
 }
-void dcvm_blink_2(void){
+void dcvm_blink_2(void) {
 	eb.addEvent(DCVM_TOGGLE);
 	t0.scheduleEvent(90, DCVM_TOGGLE);
 	t0.scheduleEvent(180, DCVM_TOGGLE);
 	t0.scheduleEvent(270, DCVM_TOGGLE);
 }
-void dcvm_blink_3(void){
+void dcvm_blink_3(void) {
 	eb.addEvent(DCVM_TOGGLE);
 	t0.scheduleEvent(90, DCVM_TOGGLE);
 	t0.scheduleEvent(180, DCVM_TOGGLE);
@@ -126,10 +129,9 @@ int main(void) {		//  Template Mainline
 	dcvm_on();
 	p0.psu_on();
 
-
 	while (1) {   			// eternal loop
 		while (eb.isMore()) {
-			switch(eb.getNextEvent()) {
+			switch (eb.getNextEvent()) {
 			case BUTTON_DOWN:
 				s0.accept_down();
 				break;
@@ -208,10 +210,13 @@ int main(void) {		//  Template Mainline
 		}
 		set_sleep_mode(SLEEP_MODE_IDLE);
 		cli();
-		sleep_enable();
+		sleep_enable()
+		;
 		sei();
-		sleep_cpu();
-		sleep_disable();
+		sleep_cpu()
+		;
+		sleep_disable()
+		;
 		sei();
 	} //  endwhile
 } // end main()

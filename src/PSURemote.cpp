@@ -1,8 +1,9 @@
 /*
  * PSURemote.cpp
  *
+ *  Copyright (c) Kevin C. Castner. 2015; All rights reserved.
  *  Created on: Sep 29, 2015
- *      Author: seanacais
+ *      Author: Kevin C. Castner
  */
 
 #include <avr/io.h>

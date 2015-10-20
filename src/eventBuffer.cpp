@@ -3,16 +3,10 @@
  *
  *  Copyright (c) Kevin C. Castner. 2015; All rights reserved.
  *  Created on: Sep 26, 2015
- *      Author: seanacais
+ *      Author: Kevin C. Castner
  */
 
-static char const copyright[] =
-		"Copyright Kevin C. Castner, 2015; All Rights Reserved";
-static char const rcsid[] = "$Id: $";
-static char const rcsversion[] = "$Revision: $ $Name:  $";
-
 #include <avr/interrupt.h>
-
 #include "eventBuffer.h"
 
 eventBuffer::eventBuffer() :
@@ -34,7 +28,3 @@ uint8_t eventBuffer::getNextEvent() {
 	return buffer[tail++];
 }
 
-/*
- *
- * $Log: $
- */

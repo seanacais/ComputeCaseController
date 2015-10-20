@@ -3,7 +3,7 @@
  *
  *  Copyright (c) Kevin C. Castner. 2015; All rights reserved.
  *  Created on: Sep 26, 2015
- *      Author: seanacais
+ *      Author: Kevin C. Castner
  */
 
 #ifndef SRC_SCHEDULER_H_
@@ -41,12 +41,3 @@ public:
 };
 
 #endif /* SRC_SCHEDULER_H_ */
-
-/*
- * $Log: $
- *
- * static char const copyright[] =
- *   "Kevin C. Castner, 2015, All Rights Reserved";
- * static char const rcsid[] = "$Id: $";
- * static char const rcsversion[] = "$Revision: $";
- */

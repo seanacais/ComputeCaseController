@@ -3,7 +3,7 @@
  *
  *  Copyright (c) Kevin C. Castner. 2015; All rights reserved.
  *  Created on: Sep 26, 2015
- *      Author: seanacais
+ *      Author: Kevin C. Castner
  */
 
 #ifndef SRC_EVENTBUFFER_H_
@@ -56,12 +56,3 @@ public:
 #define DIAG_LED_BLINK_3 0x45 // Blink the Diagnostic LED 3x
 #define DIAG_LED_BLINK_4 0x46 // Blink the Diagnostic LED 4x
 #endif /* SRC_EVENTBUFFER_H_ */
-
-/*
- * $Log: $new
- *
- * static char const copyright[] =
- *   "Kevin C. Castner, 2015, All Rights Reserved";
- * static char const rcsid[] = "$Id: $";
- * static char const rcsversion[] = "$Revision: $";
- */

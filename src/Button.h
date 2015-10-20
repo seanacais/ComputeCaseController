@@ -3,7 +3,7 @@
  *
  *  Copyright (c) Kevin C. Castner. 2015; All rights reserved.
  *  Created on: Sep 26, 2015
- *      Author: seanacais
+ *      Author: Kevin C. Castner
  */
 
 #ifndef SRC_BUTTON_H_
@@ -15,7 +15,6 @@
 #define SW_STATE_DOWN 0xFF
 #define SW_PRESSED 0x00
 #define SW_RELEASED 0xFF
-
 
 #define SW_HOLD_FOR_POWER_OFF 3000
 #define SW_PRESS_DELAY 400
@@ -53,14 +52,5 @@ public:
 	void tick();
 };
 
-
 #endif /* SRC_BUTTON_H_ */
 
-/*
- * $Log: $
- *
- * static char const copyright[] =
- *   "Kevin C. Castner, 2015, All Rights Reserved";
- * static char const rcsid[] = "$Id: $";
- * static char const rcsversion[] = "$Revision: $";
- */
