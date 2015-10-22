@@ -9,7 +9,6 @@
 static char const copyright[] =
 		"Copyright (c) Kevin C. Castner, 2015; All Rights Reserved";
 
-// Include definitions for the current part defined in Makefile
 #include <stdint.h>
 #include <avr/io.h>
 #include <avr/interrupt.h>
@@ -26,7 +25,7 @@ static char const copyright[] =
 
 // Function Prototypes
 void initialize(void);
-void sleepWhenIdle();
+void sleepWhenIdle(void);
 
 // Global for timer overflow
 extern uint8_t TCNT0_VALUE;
@@ -126,7 +125,7 @@ void sleepWhenIdle(void) {
  * |    *       |    *       | RUN  |  *   | BUTTON_PRESS_2 | Remove scheduled DCVM_OFF events, execute DCVM_BLINK_2, execute DCVM_ON         |
  * |    *       |    *       | RUN  |  *   | BUTTON_PRESS_3 | Remove scheduled events, store DCVM_STATE, execute DCVM_BLINK3,                 |
  * |                                                            execute DCVM_ON, enter CFG Mode                                               |
- * |    *       |    *       | RUN  |  *   | BUTTON_P_AND_H | Turn off PSU, remove DCVM_OFF events, schedule DCVM_OFF for 8s                  |
+ * |    *       |    *       | RUN  |  *   | BUTTON_P_AND_H | Turn off PSU, remove DCVM_OFF events, Blink DCVS, schedule DCVM_OFF for 8s      |
  * |    *       |    *       | CFG  | NUN  | BUTTON_PRESS   | execute DCVM_BLINK, Set EVAR = PSU                                              |
  * |    *       |    *       | CFG  | PSU  | BUTTON_PRESS   | execute DCVM_BLINK, Set EVAR = NUN, prep to store PSU_ON in EEPROM for boot     |
  * |    *       |    *       | CFG  | PSU  | BUTTON_PRESS_2 | execute DCVM_BLINK_2 , Set EVAR = NUN, prep to store PSU_OFF in EEPROM for boot |
@@ -143,7 +142,7 @@ int main(void) {
 
 	sei();
 	while (1) {
-		// don't exit this loop until the event buffer is empty.
+		// don't exit isMore() loop until the event buffer is empty.
 		// If the isMore() loop exits, the processor will go into
 		// an idle sleep.  The timer interrupt will ensure it comes
 		// back out of sleep mode.
@@ -204,9 +203,8 @@ int main(void) {
 				dled0.blink_3();
 				break;
 
-
 			/*
-			 * Buttons presses drive the state machine.
+			 * Buttons presses below drive the state machine.
 			 */
 			case BUTTON_PRESS:
 				if (!cfgMode) {
