@@ -30,12 +30,16 @@ private:
 
 	uint8_t findNextUnused();
 	void addNode(const uint16_t, const uint8_t);
+	uint8_t removeNode(const uint8_t);
 	uint8_t findLastScheduledPrior(const uint16_t);
+	uint8_t findPreviousNode(const uint8_t);
 	uint16_t totalTicksUntil(const uint8_t);
 
 public:
 	Scheduler();
 	void scheduleEvent(const uint16_t, const uint8_t);
+	void removeEvents(void);
+	void removeEventType(const uint8_t);
 	bool isDue(void);
 	uint8_t getEvent(void);
 };

@@ -59,6 +59,39 @@ void Scheduler::addNode(const uint16_t deltat, const uint8_t event) {
 	}
 }
 
+uint8_t Scheduler::removeNode(const uint8_t nodeCurr) {
+	const uint8_t nodePrev = findPreviousNode(nodeCurr);
+	const uint8_t nodeNext = nodes[nodeCurr].next;
+
+	nodes[nodeCurr].inUse = false;
+	if (nodePrev == 0) { // This is the first node in the list
+		head = nodes[nodeCurr].next;
+	} else { // somewhere in the middle or the end of the list.
+		nodes[nodePrev].next = nodeNext;
+	}
+
+	// Removing this node so add the delta ticks to the
+	// next if the next is valid.
+	if (nodeNext != 0) {
+		nodes[nodeNext].tick += nodes[nodeCurr].tick;
+	}
+	return nodeNext;
+}
+
+uint8_t Scheduler::findPreviousNode(const uint8_t nodeCurr) {
+	uint8_t curr = head;
+	uint8_t last = 0;
+
+	while(curr) {
+		if (curr == nodeCurr) {
+			return last;
+		}
+		last = curr;
+		curr = nodes[curr].next;
+	}
+	return curr;
+}
+
 uint8_t Scheduler::findNextUnused() {
 	uint8_t n = 1;
 	while (n < MAX_NODES) {
@@ -134,6 +167,8 @@ bool Scheduler::isDue(void) {
 }
 
 uint8_t Scheduler::getEvent(void) {
+	// This function returns the event at the head of the list
+	// and removes the node.
 	cli();
 	uint8_t n = head;
 	uint8_t e = nodes[n].event;
@@ -141,4 +176,32 @@ uint8_t Scheduler::getEvent(void) {
 	nodes[n].inUse = false;
 	sei();
 	return e;
+}
+
+void Scheduler::removeEvents(void) {
+	// When no argument is given, clear all events
+	if (head == 0) { // no events to remove if the list is empty.
+		return;
+	}
+
+	while (head != 0) {
+		getEvent();
+	}
+}
+
+void Scheduler::removeEventType(const uint8_t event) {
+	if (head == 0) { // no events to remove if the list is empty.
+		return;
+	}
+
+	cli();
+	uint8_t curr = head;
+	while (curr != 0) {
+		if (nodes[curr].event == event) {
+			curr = removeNode(curr);
+		} else {
+			curr = nodes[curr].next;
+		}
+	}
+	sei();
 }

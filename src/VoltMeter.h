@@ -9,9 +9,13 @@
 #ifndef SRC_VOLTMETER_H_
 #define SRC_VOLTMETER_H_
 
+#define DCVM_BLINK_TIME 90
+#define DCVM_BLINK_2_TIME 270
+#define DCVM_BLINK_3_TIME 450
+
 class VoltMeter {
 private:
-	;
+	bool state;
 public:
 	VoltMeter();
 	void on(void);
@@ -20,6 +24,9 @@ public:
 	void blink(void);
 	void blink_2(void);
 	void blink_3(void);
+
+	bool isOn();
+	bool isOff();
 };
 
 #endif /* SRC_VOLTMETER_H_ */

@@ -2,32 +2,38 @@
  * PSURemote.cpp
  *
  *  Copyright (c) Kevin C. Castner. 2015; All rights reserved.
- *  Created on: Sep 29, 2015
+ *  Created on: Oct 20, 2015
  *      Author: Kevin C. Castner
  */
 
 #include <avr/io.h>
 #include "PSURemote.h"
 
-PSURemote::PSURemote() : psu_remote_state(PSU_OFF) {
+PSURemote::PSURemote() {
+
 	DDRB |= (_BV(PB1)); // Set PB1 to an output (PSURC)
-	off();              // Start with the PSU off
+	state = false;
+	PORTB |= _BV(PB1);  // Start with the PSU off
 }
 
 void PSURemote::on(){
-	if (psu_remote_state == PSU_OFF) {
-		psu_remote_state = PSU_ON;
+	if (state == false) {
+		state = true;
 		PORTB &= ~(_BV(PB1));
 	}
 }
 
 void PSURemote::off(){
-	if (psu_remote_state == PSU_ON) {
-		psu_remote_state = PSU_OFF;
+	if (state == true) {
+		state = false;
 		PORTB |= _BV(PB1);
 	}
 }
 
-uint8_t PSURemote::state(){
-	return psu_remote_state;
+bool PSURemote::isOn(){
+	return state;
+}
+
+bool PSURemote::isOff(){
+	return !state;
 }
